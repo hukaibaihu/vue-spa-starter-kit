@@ -1,0 +1,7 @@
+import 'babel-polyfill'
+import Vue from 'vue'
+import Vuex from 'vuex'
+import VueRouter from 'vue-router'
+import {sync} from 'vuex-router-sync'
+import axios from 'axios'
+import ElementUI from 'element-ui'
