@@ -1,5 +1,6 @@
 var path = require('path')
 var webpack = require('webpack')
+var HtmlWebpackPlugin = require('html-webpack-plugin')
 
 var context = path.join(__dirname, '..')
 
@@ -9,7 +10,7 @@ module.exports = {
   },
   output: {
     path: path.join(context, 'static/js'),
-    filename: '[name].dll.js',
+    filename: '[name].dll.[chunkhash].js',
     library: '[name]'
   },
   resolve: {
@@ -30,6 +31,10 @@ module.exports = {
       output: {
         comments: false
       }
+    }),
+    new HtmlWebpackPlugin({
+      filename: path.join(context, 'index.html'),
+      template: 'index.tpl'
     })
   ]
 }

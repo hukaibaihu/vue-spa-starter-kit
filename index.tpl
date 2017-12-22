@@ -11,5 +11,5 @@
   <body>
     <div id="app"></div>
     <!-- built files will be auto injected -->
-  <script type="text/javascript" src="static/js/vendor.dll.604c0b21d6f450f13a75.js"></script></body>
+  </body>
 </html>
