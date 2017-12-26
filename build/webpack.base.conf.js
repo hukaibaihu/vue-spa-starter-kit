@@ -1,9 +1,15 @@
 'use strict'
+const os = require('os')
 const path = require('path')
 const utils = require('./utils')
 const config = require('../config')
 const webpack = require('webpack')
+const Happypack = require('happypack')
 const vueLoaderConfig = require('./vue-loader.conf')
+
+const happyThreadPool = Happypack.ThreadPool({
+  size: os.cpus().length
+})
 
 function resolve (dir) {
   return path.join(__dirname, '..', dir)
@@ -49,7 +55,8 @@ module.exports = {
       },
       {
         test: /\.js$/,
-        loader: 'babel-loader',
+        // loader: 'babel-loader',
+        loader: 'happypack/loader?id=happy-babel-js',
         include: [resolve('src'), resolve('test')]
       },
       {
@@ -79,6 +86,12 @@ module.exports = {
     ]
   },
   plugins: [
+    // Happypack thread pool
+    new Happypack({
+      id: 'happy-babel-js',
+      loaders: ['babel-loader?cacheDirectory=true'],
+      threadPool: happyThreadPool
+    }),
     new webpack.DllReferencePlugin({
       name: 'vendor',
       manifest: require('../vendor.manifest.json'),
